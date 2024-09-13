@@ -51,3 +51,23 @@ pub fn iterator_window(i: Iterator(a), by n: Int) -> Iterator(Iterator(a)) {
 
   iterator.unfold(from: i, with: yield)
 }
+
+/// Returns an iterator of tuples containing two contiguous elements.
+///
+/// ## Examples
+///
+/// ```gleam
+/// iterator_window_by_2([1,2,3,4])
+///   |> iterator.to_list
+/// // -> [#(1, 2), #(2, 3), #(3, 4)]
+/// ```
+///
+/// ```gleam
+/// iterator_window_by_2([1])
+///   |> iterator.to_list
+/// // -> []
+/// ```
+///
+pub fn iterator_window_by_2(i: Iterator(a)) -> Iterator(#(a, a)) {
+  iterator.zip(i, iterator.drop(i, 1))
+}
