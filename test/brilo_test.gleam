@@ -1,3 +1,6 @@
+import brilo
+import gleam/iterator
+import gleam/string
 import gleeunit
 import gleeunit/should
 
@@ -5,8 +8,12 @@ pub fn main() {
   gleeunit.main()
 }
 
-// gleeunit test functions end in `_test`
-pub fn hello_world_test() {
-  1
-  |> should.equal(1)
+pub fn iterator_from_string_test() {
+  let string = "BRILO RULEZ! 🎆"
+
+  string
+  |> brilo.iterator_from_string
+  |> iterator.to_list
+  |> string.join("")
+  |> should.equal(string)
 }
