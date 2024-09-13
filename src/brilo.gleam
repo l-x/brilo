@@ -21,3 +21,33 @@ pub fn iterator_from_string(string: String) -> Iterator(String) {
 
   iterator.unfold(from: string, with: yield)
 }
+
+/// Returns an iterator of sliding windows.
+///
+/// ## Examples
+///
+/// ```gleam
+/// iterator.from_list([1,2,3,4,5])
+///   |> iterator_window(3)
+///   |> iterator.map(iterator.to_list)
+///   |> iterator.to_list
+/// // -> [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
+/// ```
+///
+/// ```gleam
+/// window([1, 2], 4)
+/// // -> []
+/// ```
+///
+pub fn iterator_window(i: Iterator(a), by n: Int) -> Iterator(Iterator(a)) {
+  let yield = fn(x: Iterator(a)) {
+    let chunk = x |> iterator.take(n)
+
+    case chunk |> iterator.length == n {
+      True -> Next(chunk, x |> iterator.drop(1))
+      False -> Done
+    }
+  }
+
+  iterator.unfold(from: i, with: yield)
+}
