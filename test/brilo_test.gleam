@@ -92,3 +92,33 @@ pub fn iterator_window_by_2_over_size_test() {
   |> iterator.to_list
   |> should.equal([])
 }
+
+pub fn string_translate_none_test() {
+  "ABCDE"
+  |> brilo.string_translate([#("X", "Y")])
+  |> should.equal("ABCDE")
+}
+
+pub fn string_translate_empty_test() {
+  ""
+  |> brilo.string_translate([#("X", "Y")])
+  |> should.equal("")
+}
+
+pub fn string_translate_no_translations_test() {
+  "ABCDE"
+  |> brilo.string_translate([])
+  |> should.equal("ABCDE")
+}
+
+pub fn string_translate_one_test() {
+  "ABCDE"
+  |> brilo.string_translate([#("C", "X")])
+  |> should.equal("ABXDE")
+}
+
+pub fn string_translate_in_order_test() {
+  "ABCDE"
+  |> brilo.string_translate([#("B", ""), #("D", "A"), #("E", "B")])
+  |> should.equal("ACAB")
+}

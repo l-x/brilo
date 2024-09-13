@@ -71,3 +71,22 @@ pub fn iterator_window(i: Iterator(a), by n: Int) -> Iterator(Iterator(a)) {
 pub fn iterator_window_by_2(i: Iterator(a)) -> Iterator(#(a, a)) {
   iterator.zip(i, iterator.drop(i, 1))
 }
+
+/// Creates a new `String` by applying all given replacement pairs
+///
+/// ## Example
+///
+/// ```gleam
+/// string_translate("www.example.com", with: [#(".", "-"), #("com", "net")])
+/// // -> "www-example-net"
+/// ```
+///
+pub fn string_translate(
+  string: String,
+  with translations: List(#(String, String)),
+) -> String {
+  case translations {
+    [] -> string
+    [x, ..xs] -> string_translate(string.replace(string, x.0, x.1), xs)
+  }
+}
