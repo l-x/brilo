@@ -6,15 +6,8 @@
 ```sh
 gleam add brilo@1
 ```
-```gleam
-import brilo
 
-pub fn main() {
-  // TODO: An example of the project in use
-}
-```
-
-Further documentation can be found at <https://hexdocs.pm/brilo>.
+Documentation can be found at <https://hexdocs.pm/brilo>.
 
 ## Development
 
