@@ -1,9 +1,9 @@
 name = "brilo"
-version = "1.0.0"
+version = "1.0.2"
 
 description = "A collection of various functions missing in gleam_stdlib"
 licences = ["GPL-3.0-or-later"]
-repository = { type = "forgejo",   host = "forge.pnyhf.eu", user = "l-x", repo = "brilo" }
+repository = { type = "github", user = "l-x", repo = "brilo" }
 
 gleam = ">= 1.4.0"
 
