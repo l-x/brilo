@@ -35,7 +35,10 @@ pub fn iterator_from_string(string: String) -> Iterator(String) {
 /// ```
 ///
 /// ```gleam
-/// window([1, 2], 4)
+/// iterator.from_list([1,2])
+///   |> iterator_window(4)
+///   |> iterator.map(iterator.to_list)
+///   |> iterator.to_list
 /// // -> []
 /// ```
 ///
