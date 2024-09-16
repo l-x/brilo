@@ -52,7 +52,10 @@ pub fn iterator_window(i: Iterator(a), by n: Int) -> Iterator(Iterator(a)) {
     }
   }
 
-  iterator.unfold(from: i, with: yield)
+  case n > 0 {
+    True -> iterator.unfold(from: i, with: yield)
+    False -> iterator.empty()
+  }
 }
 
 /// Returns an iterator of tuples containing two contiguous elements.

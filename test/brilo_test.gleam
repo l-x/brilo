@@ -18,79 +18,35 @@ pub fn iterator_from_string_test() {
   |> should.equal(string)
 }
 
-pub fn iterator_window_test() {
-  [1, 2, 3, 4, 5]
-  |> iterator.from_list
-  |> brilo.iterator_window(2)
-  |> iterator.map(iterator.to_list)
-  |> iterator.to_list
-  |> should.equal([[1, 2], [2, 3], [3, 4], [4, 5]])
+pub fn window_test() {
+  let testcase = fn(subject, n, expected) {
+    subject
+    |> iterator.from_list
+    |> brilo.iterator_window(n)
+    |> iterator.map(iterator.to_list)
+    |> iterator.to_list
+    |> should.equal(expected)
+  }
+
+  testcase([1, 2, 3], 2, [[1, 2], [2, 3]])
+  testcase([1, 2, 3], 3, [[1, 2, 3]])
+  testcase([1, 2, 3], 4, [])
+  testcase([1, 2, 3, 4, 5], 3, [[1, 2, 3], [2, 3, 4], [3, 4, 5]])
+  testcase([1, 2, 3], 0, [])
+  testcase([1, 2, 3], -1, [])
 }
 
-pub fn iterator_window_empty_test() {
-  iterator.empty()
-  |> brilo.iterator_window(2)
-  |> iterator.map(iterator.to_list)
-  |> iterator.to_list
-  |> should.equal([])
-}
+pub fn window_by_2_test() {
+  let testcase = fn(subject, expected) {
+    subject
+    |> iterator.from_list
+    |> brilo.iterator_window_by_2
+    |> iterator.to_list
+    |> should.equal(expected)
+  }
 
-pub fn iterator_window_one_size_test() {
-  [1, 2, 3, 4, 5]
-  |> iterator.from_list
-  |> brilo.iterator_window(1)
-  |> iterator.map(iterator.to_list)
-  |> iterator.to_list
-  |> should.equal([[1], [2], [3], [4], [5]])
-}
-
-pub fn iterator_window_full_size_test() {
-  [1, 2, 3, 4, 5]
-  |> iterator.from_list
-  |> brilo.iterator_window(5)
-  |> iterator.map(iterator.to_list)
-  |> iterator.to_list
-  |> should.equal([[1, 2, 3, 4, 5]])
-}
-
-pub fn iterator_window_over_size_test() {
-  [1, 2, 3, 4, 5]
-  |> iterator.from_list
-  |> brilo.iterator_window(6)
-  |> iterator.map(iterator.to_list)
-  |> iterator.to_list
-  |> should.equal([])
-}
-
-pub fn iterator_window_by_2_test() {
-  [1, 2, 3, 4, 5]
-  |> iterator.from_list
-  |> brilo.iterator_window_by_2
-  |> iterator.to_list
-  |> should.equal([#(1, 2), #(2, 3), #(3, 4), #(4, 5)])
-}
-
-pub fn iterator_window_by_2_empty_test() {
-  iterator.empty()
-  |> brilo.iterator_window_by_2
-  |> iterator.to_list
-  |> should.equal([])
-}
-
-pub fn iterator_window_by_2_full_size_test() {
-  [1, 2]
-  |> iterator.from_list
-  |> brilo.iterator_window_by_2
-  |> iterator.to_list
-  |> should.equal([#(1, 2)])
-}
-
-pub fn iterator_window_by_2_over_size_test() {
-  [1]
-  |> iterator.from_list
-  |> brilo.iterator_window_by_2
-  |> iterator.to_list
-  |> should.equal([])
+  testcase([1, 2, 3, 4], [#(1, 2), #(2, 3), #(3, 4)])
+  testcase([1], [])
 }
 
 pub fn string_translate_none_test() {
